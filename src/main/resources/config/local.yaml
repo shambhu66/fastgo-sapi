@@ -1,0 +1,10 @@
+http:
+  listner:
+    host: "localhost"
+    port: "8085"
+
+requester:
+  host: "localhost"
+  port: "8082"
+  Routepath: "/fastGoCall/routes"
+  Schedulepath: "/fastGoCall/schedules"      
