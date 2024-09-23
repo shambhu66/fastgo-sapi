@@ -1,0 +1,67 @@
+#%RAML 1.0
+title: RetrieveFastGORouteAndSchedule-SAPI
+description: This is the System api to retrieve routes and schedules from FastGo system
+types:
+  getRoutes: !include /libraries/routes/datatypes/getRoute-200Response-dataType.raml
+  getSchedules: !include /libraries/schedules/datatypes/getSchedules-200Response-dataType.raml
+  commonError: !include /libraries/common/datatype/common-error-dataType.raml
+
+uses:
+  common: /libraries/common/commonBusinessLibrary.raml
+
+/{transportType}:
+  /{transportCompany}:
+    /routes:  
+       get:
+        is:
+          - common.transactionId
+        responses:
+          200:
+            body:
+              application/json:
+                type: getRoutes
+                example: !include /libraries/routes/examples/getRoute200Response-examples.json
+                    
+          400:
+              body:
+                 application/json:
+                   type: commonError
+                   example: !include /libraries/common/examples/400Response-example.json 
+          404:
+              body:
+                 application/json:
+                   type: commonError
+                   example: !include /libraries/common/examples/404Response-example.json
+          500:
+              body:
+                 application/json:
+                   type: commonError
+                   example: !include /libraries/common/examples/500Response-example.json
+    /schedules:
+      get:
+        is:
+          - common.transactionId
+          - common.departureLocationCode
+          - common.destinationLocationCode
+        responses:
+             200:
+                body:
+                  application/json:
+                    type: getSchedules
+                    example: !include /libraries/schedules/examples/getSchedule-200response-example.json
+             400:
+              body:
+                 application/json:
+                   type: commonError
+                   example: !include /libraries/common/examples/400Response-example.json
+                     
+             404:
+              body:
+                 application/json:
+                   type: commonError
+                   example: !include /libraries/common/examples/404Response-example.json
+             500:
+              body:
+                 application/json:
+                   type: commonError
+                   example: !include /libraries/common/examples/500Response-example.json
